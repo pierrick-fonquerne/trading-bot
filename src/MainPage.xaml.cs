@@ -1,4 +1,4 @@
-﻿namespace TradingBot
+namespace TradingBot
 {
     public partial class MainPage : ContentPage
     {
