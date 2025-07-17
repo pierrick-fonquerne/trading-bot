@@ -1,0 +1,32 @@
+name: .NET MAUI CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+          dotnet-quality: 'preview'
+
+      - name: Restore workloads
+        run: dotnet workload restore --project src/TradingBot.csproj
+
+      - name: Restore dependencies
+        run: dotnet restore src/TradingBot.sln
+
+      - name: Build
+        run: dotnet build src/TradingBot.sln -c Release --no-restore
